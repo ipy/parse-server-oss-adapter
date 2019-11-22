@@ -42,6 +42,7 @@ function optionsFromArguments(args) {
   options = requiredOrFromEnvironment(options, 'bucket', 'OSS_BUCKET');
   options = fromEnvironmentOrDefault(options, 'bucketPrefix', 'OSS_BUCKET_PREFIX', '');
   options = fromEnvironmentOrDefault(options, 'region', 'OSS_REGION', DEFAULT_OSS_REGION);
+  options = fromEnvironmentOrDefault(options, 'internal', 'OSS_INTERNAL', false);
   options = fromEnvironmentOrDefault(options, 'directAccess', 'OSS_DIRECT_ACCESS', false);
   options = fromEnvironmentOrDefault(options, 'baseUrl', 'OSS_BASE_URL', null);
   options = fromEnvironmentOrDefault(options, 'baseUrlDirect', 'OSS_BASE_URL_DIRECT', false);
@@ -55,6 +56,7 @@ function optionsFromArguments(args) {
 function OSSAdapter() {
   var options = optionsFromArguments(arguments);
   this._region = options.region;
+  this._internal = options.internal;
   this._bucket = options.bucket;
   this._bucketPrefix = options.bucketPrefix;
   this._directAccess = options.directAccess;
@@ -65,7 +67,8 @@ function OSSAdapter() {
     accessKeyId: options.accessKey,
     accessKeySecret: options.secretKey,
     bucket: this._bucket,
-    region: this._region
+    region: this._region,
+    internal: this._internal
   };
   this._ossClient = new OSS(ossOptions);
   this._ossClient.listBuckets().then((val)=> {

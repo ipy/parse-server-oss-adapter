@@ -35,9 +35,9 @@ npm install --save parse-server-oss-adapter2
 Set your environment variables:
 
 <pre>
-OOS_ACCESS_KEY=accessKey
-OOS_SECRET_KEY=secretKey
-OOS_BUCKET=bucketName
+OSS_ACCESS_KEY=accessKey
+OSS_SECRET_KEY=secretKey
+OSS_BUCKET=bucketName
 </pre>
 
 And update your config / options
